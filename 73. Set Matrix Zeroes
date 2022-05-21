@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+        map<int,int>x,y;
+        vector<int>vx,vy;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    if(x.find(i)==x.end())
+                    {x.insert({i,1});vx.push_back(i);}
+                    if(y.find(j)==y.end())
+                    {y.insert({j,1});vy.push_back(j);}
+                }
+            }
+        }
+            for(auto ans:vx)
+            {
+                for(int j=0;j<n;j++)
+                    matrix[ans][j]=0;
+            }
+             for(auto ans:vy)
+            {
+                for(int i=0;i<m;i++)
+                    matrix[i][ans]=0;
+            }
+    }
+};
