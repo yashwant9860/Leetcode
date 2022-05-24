@@ -1,0 +1,88 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode* a=head;
+        int arr[201];
+        memset(arr,0,sizeof arr);
+        while(a!=NULL)
+        {   
+            arr[a->val+100]++;
+            a=a->next;
+        }
+        int count=0;
+        ListNode* curr=new ListNode;
+        ListNode* c=curr,*prev=curr;
+        for(int i=0;i<201;i++)
+        {
+            if(arr[i]==1)
+            {
+                curr->val=i-100;
+                ListNode* n=new ListNode;
+                curr->next=n;
+                prev=curr;
+                curr=n;
+                count++;
+            }
+        }
+        if(count==0)
+            return NULL;
+        prev->next=NULL;
+        return c;
+
+    }
+};
+
+
+/*Another Method
+
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* a=new ListNode(0,head);
+        ListNode* b=a;
+        while(head!=NULL)
+        {
+            if(head->next!=NULL && head->next->val==head->val)
+            {
+                while(head->next!=NULL && head->next->val==head->val)
+                {
+                    head=head->next;
+                }
+                b->next=head->next;
+            }
+            else{
+                b=b->next;
+            }
+            head=head->next;
+        }
+        return a->next;
+    }
+};
+
+*/
