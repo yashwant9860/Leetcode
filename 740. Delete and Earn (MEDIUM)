@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        map<int,int>m;
+        int n=nums.size();
+        int a=nums[0],b=nums[0];
+        for(int i=0;i<n;i++)
+        {
+            a=max(a,nums[i]);
+            if(m.find(nums[i])!=m.end())
+                m[nums[i]]+=nums[i];
+            else{
+                m.insert({nums[i],nums[i]});
+            b=min(nums[i],b);
+        }}
+        
+        vector<int>ans(a+1,0);
+        ans[0]=0;
+        ans[b-1]=0;
+        ans[b]=m[b];
+        for(int i=b+1;i<a+1;i++)
+        {
+            if(m.find(i)!=m.end())
+            ans[i]=max(ans[i-1],ans[i-2]+m[i]);
+            else
+            ans[i]=max(ans[i-1],ans[i-2]);
+        }
+        return ans[a];
+    }
+};
