@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+       int l1=s.length(),l2=p.length();
+        vector<int>h1(26,0),h2(26,0),v;
+        if(l2>l1)
+            return v;
+        for(int i=0;i<l2;i++)
+        {
+            h2[p[i]-'a']++;
+            h1[s[i]-'a']++;
+        }
+        if(h1==h2)
+            v.push_back(0);
+        for(int i=l2;i<l1;i++)
+        {
+            h1[s[i]-'a']++;
+            h1[s[i-l2]-'a']--;
+            if(h2==h1)
+            v.push_back(i-l2+1);
+        }
+        return v;
+        
+    }
+};
