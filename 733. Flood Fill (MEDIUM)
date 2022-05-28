@@ -1,0 +1,19 @@
+class Solution {
+    void dfs(vector<vector<int>>&v,int i,int j,int newc,int val)
+    {
+        if(i<0 || i>=v.size() || j<0 || j>=v[0].size() || v[i][j]==newc || v[i][j]!=val)
+            return;
+        v[i][j]=newc;
+            dfs(v,i+1,j,newc,val);
+            dfs(v,i-1,j,newc,val);
+            dfs(v,i,j-1,newc,val);
+            dfs(v,i,j+1,newc,val);
+        
+    }
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int a=image[sr][sc];
+        dfs(image,sr,sc,newColor,a);
+        return image;
+    }
+};
