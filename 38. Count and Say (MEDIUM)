@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        int a=n;
+        string k=to_string(1);
+        for(int i=1;i<n;i++)
+        {
+            string s="";
+            
+            for(int j=0;j<k.length();j++)
+            {
+                int l=0;
+                int b=j;
+                while( b<k.length() &&k[b]==k[j] )
+                {
+                    b++;
+                    l++;
+                }
+                string p=to_string(l);
+                char f=k[j];
+                s+=p;
+                s+=f;
+                j=b-1;
+            }
+            k=s;
+        }
+        return k;
+    }
+};
