@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> getAverages(vector<int>& nums, int k) {
+        int n=nums.size();
+        vector<long long>v(n,0);
+        vector<int>ans;
+        v[0]=nums[0];
+        for(int i=1;i<n;i++)
+        {
+            v[i]=v[i-1]+nums[i];
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(i-k<0||i+k>n-1)
+            {
+                ans.push_back(-1);
+            }
+            else
+            {
+                long long a=v[i+k];
+                if(i-k!=0)
+                {
+                    a=a-v[i-k-1];
+                }
+                long long c=a/(2*k+1);
+                int l=int(c);
+                ans.push_back((int)c);
+                
+            }
+        }
+        return ans;
+    }
+};
