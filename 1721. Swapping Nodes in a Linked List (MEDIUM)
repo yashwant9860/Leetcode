@@ -1,0 +1,29 @@
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        ListNode* a=head,*b=head,*c=head;
+        int l=0,front,end;
+        while(a!=NULL)
+        {
+            if(l==(k-1))
+            {
+                front=a->val;
+            }
+            l++;
+            a=a->next;
+        }
+        int s=l-k;
+        while(s--)
+        {
+            b=b->next;
+        }
+        end=b->val;
+        b->val=front;
+        k=k-1;
+        while(k--)
+        {
+            c=c->next;
+        }
+        c->val=end;
+        return head;
+    }
+};
