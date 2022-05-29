@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        int nw=words.size(),nq=queries.size();
+        vector<int>v(2005,0);
+        for(int i=0;i<nw;i++)
+        {
+            vector<int>f(26,0);
+            int min=25;
+            char ch='z';
+            for(auto a:words[i])
+            {
+                f[a-'a']++;
+                if(a<=ch)
+                {min=f[a-'a'];ch=a;}
+            }
+            v[min]++;
+        }
+        for(int i=1;i<2005;i++)
+            v[i]+=v[i-1];
+        
+        
+        vector<int>ans;
+        for(int i=0;i<nq;i++)
+        {
+            vector<int>f(26,0);
+            int min=25;
+            char ch='z';
+            for(auto a:queries[i])
+            {
+                f[a-'a']++;
+                if(a<=ch)
+                {min=f[a-'a'];ch=a;}
+            }
+            ans.push_back(v[2002]-v[min]);
+            
+            
+        }
+        return ans;
+    }
+};
