@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        long long  ans=0;
+        if(dividend==INT_MIN && divisor==-1)
+            return INT_MAX;
+        if(dividend==INT_MAX && divisor==1)
+            return INT_MAX;
+        if(dividend==INT_MIN && divisor==1)
+            return INT_MIN;
+        if(dividend==INT_MAX && divisor==-1)
+            return -1*INT_MAX;
+        int sign=-1;
+        if((dividend>0&&divisor>0)||(dividend<0&&divisor<0))
+            sign=1;
+        
+        long long a=abs((long long)dividend);
+        long long b=abs((long long)divisor);
+        while(a>=b)
+        {
+            long long s=0,dvs=b;
+            while((dvs<<1)<=a)
+            {
+                dvs=dvs<<1;
+                s++;
+            }
+            a-=dvs;
+            ans+=1<<s;
+        }
+        return ans*sign;
+    }
+};
