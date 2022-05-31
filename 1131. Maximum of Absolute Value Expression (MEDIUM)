@@ -1,0 +1,28 @@
+class Solution {
+    int f(vector<int>v)
+    {
+        int n=v.size();
+        int mx=v[0],mn=v[0];
+        for(int i=0;i<n;i++)
+        {
+            mx=max(mx,v[i]);
+            mn=min(mn,v[i]);
+        }
+        return abs(mx-mn);
+    }
+public:
+    int maxAbsValExpr(vector<int>& arr1, vector<int>& arr2) {
+        int n=arr1.size();
+        vector<int>v1(n),v2(n),v3(n),v4(n);
+        for(int i=0;i<n;i++)
+        {
+            v1[i]=arr1[i]+arr2[i]+i;
+            v2[i]=arr1[i]-arr2[i]+i;
+            v3[i]=arr1[i]+arr2[i]-i;
+            v4[i]=arr1[i]-arr2[i]-i;
+        }
+        return max(max(max(f(v1),f(v2)),f(v3)),f(v4));
+
+            
+    }
+};
