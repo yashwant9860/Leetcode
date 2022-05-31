@@ -1,0 +1,63 @@
+class Bitset {
+    int a=100000;
+    
+    int s=0,sum=0;
+    vector<bool>v;
+public:
+    Bitset(int size) {
+        v.resize(size,0);
+        s=size;
+    }
+    
+    void fix(int idx) {
+        if(v[idx]!=1)
+            sum++;
+        v[idx]=1;
+    }
+    
+    void unfix(int idx) {
+        if(v[idx]!=0)
+            sum--;
+
+        v[idx]=0;
+    }
+    
+    void flip() {
+        v.flip();
+        sum=s-sum;
+    }
+    
+    bool all() {
+        return sum==s;
+    }
+    
+    bool one() {
+        return !(sum==0);
+    }
+    
+    int count() {
+        return sum;
+    }
+    
+    string toString() {
+        string k="";
+        for(int i=0;i<s;i++)
+        {
+            char c=v[i]+'0';
+            k+=c;
+        }
+        return k;
+    }
+};
+
+/**
+ * Your Bitset object will be instantiated and called as such:
+ * Bitset* obj = new Bitset(size);
+ * obj->fix(idx);
+ * obj->unfix(idx);
+ * obj->flip();
+ * bool param_4 = obj->all();
+ * bool param_5 = obj->one();
+ * int param_6 = obj->count();
+ * string param_7 = obj->toString();
+ */
