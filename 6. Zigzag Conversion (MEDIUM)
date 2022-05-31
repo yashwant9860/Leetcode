@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string>v(numRows);
+        if(numRows==1)
+            return s;
+        int j=0,step=1;
+        for(int i=0;i<s.length();i++)
+        {
+            v[j]+=s[i];
+            if(j==0)
+                step=1;
+            if(j==numRows-1)
+                step=-1;
+            j+=step;
+        }
+        string ans="";
+        for(int i=0;i<numRows;i++)
+        {
+            cout<<v[i]<<endl;
+                ans+=v[i];
+            
+        }
+        return ans;
+    }
+};
