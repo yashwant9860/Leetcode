@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isValid(string s) {
+       vector<char>v;
+        for(auto a:s)
+        {
+            if(v.size()>=2 && a=='c' && v[v.size()-1]=='b' && v[v.size()-2]=='a')
+            {
+                v.resize(v.size()-2);
+            }
+            else
+                v.push_back(a);
+        }
+        return v.empty();
+    }
+};
