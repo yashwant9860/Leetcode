@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxScore(string s) {
+        int n=s.length();
+        int tot1=0,tot2=0;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='0')
+                tot1++;
+            else
+                tot2++;
+        }
+        int a=0,b=0,ans=0;
+        
+
+
+        for(int i=0;i<n-1;i++)
+        {
+            if(s[i]=='0')
+                a++;
+            else
+                b++;
+            ans=max(a+tot2-b,ans);
+        }
+        return ans;
+    }
+};
