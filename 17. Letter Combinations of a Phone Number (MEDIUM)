@@ -1,0 +1,26 @@
+class Solution {
+    vector<string>m{"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void combine(vector<string>&ans,int n,int i,string &digits,string p)
+    {
+        if(i==n)
+        {ans.push_back(p);return ;}
+        else
+        {
+            int k=digits[i]-'0';
+            for(auto f:m[k])
+            {
+                combine(ans,n,i+1,digits,p+f);
+            }
+        }
+    }
+    public:
+    vector<string> letterCombinations(string digits) {
+        int n=digits.length();
+        vector<string>ans;
+        if(n==0)
+            return ans;
+        
+        combine(ans,n,0,digits,"");
+        return ans;
+    }
+};
