@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int n=s.length();
+        string k="";
+        char sign='+';
+        int flag=0;
+        int j=0,sig=0,p=0;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='+'||s[i]=='-')
+            {sig++;p=i;}
+            if(sig>1)
+                return 0;
+            if((s[i]>='a'&&s[i]<='z')||(s[i]<='Z'&&s[i]>='A')||s[i]=='.')
+                return 0;
+            if(s[i]-'0'<=9 && s[i]-'0'>=0 )
+            {
+                j=i;
+                while(i<n&&s[i]-'0'<=9 && s[i]-'0'>=0)
+                {
+                    k+=s[i];
+                    i++;
+                }
+                break;
+            }
+        }
+        if(s[p]=='+'||s[p]=='-')
+        {
+            if(p!=j-1)
+                return 0;
+        }
+        if(j-1>=0)
+        {
+            if(s[j-1]=='-')
+                sign='-';
+        }
+        int f=0,r=0;
+        for(int i=0;i<k.length();i++)
+        {
+            if(k[i]=='0'&&f==0)
+            { r++;}
+            else
+                f=1;
+        }
+        k=k.substr(r,k.length()-r);
+        long long ans=0;
+        for(int i=0;i<k.length();i++)
+        {
+            ans=ans*10+k[i]-'0';
+            if(ans>((long long)1<<31)-1&&sign=='+')
+            {ans=((long long)1<<31)-1;return ans;}
+            if(ans>((long long)1<<31)&&sign=='-')
+            {
+                ans=-(1*((long long)1<<31));
+                return (int)ans;
+            }
+        }
+        if(sign=='-')
+            return ans*-1;
+        return ans;
+    }
+};
