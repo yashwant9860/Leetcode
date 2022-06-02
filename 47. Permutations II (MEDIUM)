@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>ans;
+        ans.push_back(nums);
+        reverse(nums.begin(),nums.end());
+       int cnt=0;
+        while(ans[cnt]!=nums){
+            cnt++;
+            vector<int>s=ans[cnt-1];
+            int k;
+            for(int j=n-1;j>0;j--)
+            {
+                if(s[j-1]<s[j])
+                {
+                    k=j;
+                    break;
+                }
+            }
+            int ind=k,mx=INT_MAX;
+            for(int l=k;l<n;l++)
+            {
+                if(mx>=s[l]-s[k-1]&&s[l]>s[k-1])
+                {
+                    ind=l;
+                    mx=s[l]-s[k-1];
+                }
+            }
+            swap(s[k-1],s[ind]);
+            reverse(s.begin()+k,s.end());
+            ans.push_back(s);
+        }
+        return ans;
+    }
+};
