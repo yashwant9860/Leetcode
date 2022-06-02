@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& nums) {
+        int n=nums.size(),tot1=0,tot2=0;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==0)
+                tot1+=1;
+            else
+                tot2+=1;
+        }
+        map<int,vector<int>>p;
+        int m=max(tot1,tot2),a=0,b=0;
+        cout<<tot1<<" "<<tot2<<endl;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==0)
+                a++;
+            else
+                b++;
+            if(a+tot2-b>=m)
+            {
+                if(p.find(tot2-b+a)!=p.end())
+                    p[tot2-b+a].push_back(i+1);
+                else
+                    p.insert({tot2-b+a,vector<int>{i+1}});
+            }
+            m=max(m,a+tot2-b);
+            
+                
+        }
+        vector<int>v;
+        if(m==tot2)
+        {
+            p[m].push_back(0);
+        }
+        return p[m];
+        
+    }
+};
