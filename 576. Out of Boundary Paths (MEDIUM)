@@ -1,0 +1,20 @@
+class Solution {
+    
+    long long dfs(int m,int n,int i,int j,int p,vector<vector<vector<long long>>>&v)
+    {
+        if(i<0||i>=m||j<0||j>=n)
+            return 1;
+        if(p==0)
+            return 0;
+        if(v[i][j][p]>=0)
+            return v[i][j][p];
+v[i][j][p]=(dfs(m,n,i+1,j,p-1,v)+dfs(m,n,i-1,j,p-1,v)+dfs(m,n,i,j+1,p-1,v)+dfs(m,n,i,j-1,p-1,v))%1000000007;
+        return v[i][j][p];
+    }
+public:
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        long long ans=0;
+        vector<vector<vector<long long>>>v(m,vector<vector<long long>>(n,vector<long long >(maxMove+1,-1)));
+        return dfs(m,n,startRow,startColumn,maxMove,v);
+    }
+};
