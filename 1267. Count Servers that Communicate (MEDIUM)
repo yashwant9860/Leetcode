@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int countServers(vector<vector<int>>& grid) {
+        int m=grid.size(),n=grid[0].size(),count=0,total=0;
+        vector<int>v;
+        for(int i=0;i<m;i++)
+        {
+
+            int ind;
+            for(int j=0;j<n;j++)
+            {
+                
+                if(grid[i][j]==1)
+                {total++;count++;ind=j;}
+                
+            }
+            if(count==1)
+            {
+                v.push_back(ind);
+            }
+            count=0;
+        }
+        for(auto a:v)
+        {
+            count=0;
+            for(int i=0;i<m;i++)
+            {
+                if(grid[i][a]==1)
+                    count++;
+            }
+            if(count==1)
+                total--;
+        }
+        return total;
+    }
+};
