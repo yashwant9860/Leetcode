@@ -1,0 +1,20 @@
+class Solution {
+    int f(vector<int>&nums,int bound)
+    {
+        int ans=0,count=0;
+        for(auto a:nums)
+        {
+            if(a<=bound)
+                count++;
+            else
+                count=0;
+            ans+=count;
+        }
+        return ans;
+    }
+public:
+    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+       int ans=f(nums,right)-f(nums,left-1);
+        return ans;
+    }
+};
