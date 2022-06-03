@@ -1,0 +1,25 @@
+class Solution {
+void f(vector<int>&v,int currind,int target,vector<int>c,int currsum,vector<vector<int>>&ans)
+{
+    if(currsum>target)
+        return ;
+    if(currsum==target)
+        ans.push_back(c);
+    for(int i=currind;i<v.size();i++)
+    {
+        c.push_back(v[i]);
+        currsum+=v[i];
+        f(v,i,target,c,currsum,ans);
+        c.pop_back();
+        currsum-=v[i];  
+  }
+}
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int n=candidates.size();
+        vector<vector<int>>ans;
+        vector<int>c;
+        f(candidates,0,target,c,0,ans);
+        return ans;
+    }
+};
