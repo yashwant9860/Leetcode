@@ -1,0 +1,23 @@
+class Solution {
+    void f(int currind,int k,vector<vector<int>>&v,vector<int>c,int n)
+    {
+        if(k==0)
+        {
+            v.push_back(c);
+            return;
+        }
+        for(int i=currind;i<=n;i++)
+        {
+            c.push_back(i);
+            f(i+1,k-1,v,c,n);
+            c.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>>ans;
+        vector<int>c;
+        f(1,k,ans,c,n);
+        return ans;
+    }
+};
