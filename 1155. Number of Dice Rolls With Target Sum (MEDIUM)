@@ -1,0 +1,31 @@
+class Solution {
+    long long f(int n,int k,int t,int currsum,vector<vector<long long >>&v)
+    {
+        if(n==0&&currsum==t)
+            return 1;
+        if(currsum==t&&n!=0)
+            return 0;
+        if(n==0&&currsum!=t)
+            return 0;
+        long long a=0;
+        for(int i=1;i<=k;i++)
+        {
+            
+            if(currsum+i<=t)
+            {
+                if(v[n-1][t-currsum-i]==-1)
+                {
+                long long b=(f(n-1,k,t,currsum+i,v))%1000000007;
+                v[n-1][t-currsum-i]=b;
+                }
+                a+=(v[n-1][t-currsum-i])%1000000007;
+            }
+        }
+        return a%1000000007;
+    }
+public:
+    int numRollsToTarget(int n, int k, int target) {
+        vector<vector<long long>>v(n,vector<long long>(target,-1));
+        return f(n,k,target,0,v);
+    }
+};
