@@ -1,0 +1,23 @@
+class Solution {
+    void f(int n,vector<vector<int>>&v,vector<int>c,int currind,vector<int>nums)
+    {
+        v.push_back(c);
+        for(int i=currind;i<n;i++)
+        {
+            if(i>currind&&nums[i]==nums[i-1])
+                continue;
+            c.push_back(nums[i]);
+            f(n,v,c,i+1,nums);
+            c.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>>v;
+        int n=nums.size();
+        vector<int>c;
+        sort(nums.begin(),nums.end());
+        f(n,v,c,0,nums);
+        return v;
+    }
+};
