@@ -1,0 +1,38 @@
+class Solution {
+    void f(int n,vector<string>c,vector<vector<string>>&ans,vector<vector<int>>p,string s,int row)
+    {
+        if(row==n)
+        {ans.push_back(c);return;}
+        for(int i=0;i<n;i++)
+        {
+            int column=i,flag=0;
+            for(auto a:p)
+            {
+                if(i==a[1]||abs(i-a[1])==abs(row-a[0]))
+                {flag=1;break;}
+            }
+            if(flag==1)
+                continue;
+            else
+            {
+                string k=s;
+                k[i]='Q';
+                c.push_back(k);
+                p.push_back(vector<int>{row,i});
+                f(n,c,ans,p,s,row+1);
+                c.pop_back();
+                p.pop_back();
+            }
+        }
+    }
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+        vector<string>c;
+        vector<vector<int>>p;
+        string s="";
+        for(int i=0;i<n;i++)s+='.';
+        f(n,c,ans,p,s,0);
+        return ans;
+    }
+};
