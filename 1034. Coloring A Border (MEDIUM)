@@ -1,0 +1,31 @@
+class Solution {
+  void dfs(vector<vector<int>>&v,int i,int j,int orig){
+      if(i<0||i>v.size()-1||j<0||j>v[0].size()-1||v[i][j]!=orig)
+      {
+          return ;
+      }
+      v[i][j]=-orig;
+      dfs(v,i+1,j,orig),dfs(v,i-1,j,orig),dfs(v,i,j-1,orig),dfs(v,i,j+1,orig);
+      if(i>0&&i<v.size()-1&&j>0&&j<v[0].size()-1&&orig==abs(v[i-1][j])&&orig==abs(v[i+1][j])&&
+        orig==abs(v[i][j-1])&&orig==abs(v[i][j+1]))
+      {
+          v[i][j]=orig;
+      }
+      
+      
+  }  
+public:
+    vector<vector<int>> colorBorder(vector<vector<int>>& grid, int row, int col, int color) {
+        int m=grid.size(),n=grid[0].size();
+        dfs(grid,row,col,grid[row][col]);
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]<0)
+                    grid[i][j]=color;
+            }
+        }
+        return grid;
+    }
+};
