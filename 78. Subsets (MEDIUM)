@@ -1,0 +1,20 @@
+class Solution {
+    void f(vector<int>&nums,vector<vector<int>>&v,int n,int currind,vector<int>c)
+    {
+            v.push_back(c);
+        for(int i=currind;i<n;i++)
+        {
+            c.push_back(nums[i]);
+            f(nums,v,n,i+1,c);
+            c.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>v;
+        vector<int>c;
+        int n=nums.size();
+        f(nums,v,n,0,c);
+        return v;
+    }
+};
