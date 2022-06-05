@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumCardPickup(vector<int>& cards) {
+        map<int,int>m;
+        int n=cards.size(),mn=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            if(m.find(cards[i])!=m.end())
+            {
+                mn=min(mn,i-m[cards[i]]+1);
+                m[cards[i]]=i;
+            }
+            else
+                m.insert({cards[i],i});
+        }
+        if(mn==INT_MAX)
+            return -1;
+        else
+            return mn;
+
+    }
+};
