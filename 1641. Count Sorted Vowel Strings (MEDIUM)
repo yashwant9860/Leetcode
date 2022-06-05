@@ -1,0 +1,27 @@
+class Solution {
+    int f(int n,int tot_char,vector<vector<int>>&v,int currind)
+    {
+        if(tot_char==n)
+            return 1;
+        
+        int ans=0;
+        for(int i=currind;i<5;i++)
+        {
+            int k;
+            if(v[tot_char][i]!=-1)
+            k=v[tot_char][i];
+            else
+            {
+                v[tot_char][i]=f(n,tot_char+1,v,i);
+                k=v[tot_char][i];
+            }
+            ans+=k;
+        }
+        return ans;
+    }
+public:
+    int countVowelStrings(int n) {
+       vector<vector<int>>v(n,vector<int>(5,-1));
+        return f(n,0,v,0);
+    }
+};
