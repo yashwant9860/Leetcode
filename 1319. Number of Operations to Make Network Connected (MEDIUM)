@@ -1,0 +1,32 @@
+class Solution {
+    int dfs(vector<int>&visited,vector<vector<int>>&v,int i)
+    {
+        if(visited[i]==true)
+            return 0;
+        
+            visited[i]=true;
+            for(auto a:v[i])
+            {
+                dfs(visited,v,a);
+            }
+        return 1;
+    }
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        if(connections.size()<n-1)
+            return -1;
+        vector<int>visited(n,0);
+        vector<vector<int>>v(n);
+        for(int i=0;i<connections.size();i++)
+        {
+            v[connections[i][1]].push_back(connections[i][0]);
+            v[connections[i][0]].push_back(connections[i][1]);
+        }
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            ans+=dfs(visited,v,i);
+        }
+        return ans-1;
+    }
+};
