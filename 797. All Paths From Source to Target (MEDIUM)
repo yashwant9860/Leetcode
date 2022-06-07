@@ -1,0 +1,25 @@
+class Solution {
+    void f(vector<vector<int>>&g,vector<vector<int>>&v,vector<int>c)
+    {
+        if(c[c.size()-1]==g.size()-1)
+        {
+            v.push_back(c);
+            return ;
+        }
+        int k=c.size()-1;
+        for(auto a:g[c[k]])
+        {
+            c.push_back(a);
+            f(g,v,c);
+            c.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>>v;
+        vector<int>c;
+        c.push_back(0);
+        f(graph,v,c);
+        return v;
+    }
+};
