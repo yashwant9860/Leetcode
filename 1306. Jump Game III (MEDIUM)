@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        int n=arr.size(),count=1;
+        vector<int>dp(n,0);
+        stack<int>s;
+        dp[start]=1;
+        s.push(start);
+        if(arr[start]==0)
+            return true;
+        while(!s.empty())
+        {
+            int a=s.top();
+            s.pop();
+            if(a+arr[a]<n&&dp[a+arr[a]]==0)
+            {
+                if(arr[a+arr[a]]==0)
+                    return true;
+                s.push(a+arr[a]);
+                dp[a+arr[a]]=1;
+            }
+            if(a-arr[a]>=0&&dp[a-arr[a]]==0)
+            {
+                if(arr[a-arr[a]]==0)
+                    return true;
+                s.push(a-arr[a]);
+                dp[a-arr[a]]=1;
+            }
+        }
+        return false;
+    }
+};
