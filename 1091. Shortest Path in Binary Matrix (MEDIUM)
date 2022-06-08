@@ -1,0 +1,36 @@
+class Solution {
+   
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int m=grid.size();
+        if(grid[0][0]==1||grid[m-1][m-1]==1)
+            return -1;
+        vector<vector<int>>dir{{1,1},{1,0},{0,1},{-1,1},{1,-1},{0,-1},{-1,0},{-1,-1}};
+        queue<pair<int,int>>q;
+        q.push(make_pair(0,0));
+        grid[0][0]=1;
+        while(!q.empty())
+        {
+            int a=q.front().first;
+            int b=q.front().second;
+            q.pop();
+            if(a==m-1&&b==m-1)
+                return grid[m-1][m-1];
+            for(auto c:dir)
+            {
+                int k1=a+c[0];
+                int k2=b+c[1];
+                if(k1>=0&&k1<m&&k2<m&&k2>=0&&grid[k1][k2]==0)
+                {
+                    grid[k1][k2]=grid[a][b]+1;
+                    q.push(make_pair(k1,k2));
+                    if(k1==m-1&&k2==m-1)
+                    return grid[k1][k2];
+                }
+                
+            }
+        }
+        
+        return -1;
+    }
+};
