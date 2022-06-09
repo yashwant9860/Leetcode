@@ -1,0 +1,33 @@
+class Solution {
+    void f(string s,vector<string>&wordDict,vector<string>&v,int currind,string k)
+    {
+        int n=s.length();
+        if(currind==n)
+        {
+            k.pop_back();
+            v.push_back(k);
+        }
+      
+            for(auto a:wordDict)
+            {
+                
+                int p=a.length();
+                string l=s.substr(currind,p);
+               
+                if(p+currind<=n&&l==a)
+                {
+                    string t=k+a;
+                    t+=' ';
+                    f(s,wordDict,v,currind+p,t);
+                }
+            }
+    }
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        int n=s.length();
+        string k="";
+        vector<string>v;
+        f(s,wordDict,v,0,k);
+        return v;
+    }
+};
