@@ -1,0 +1,66 @@
+class MyCircularDeque {
+deque<int>d;
+    int s,p=0;
+    public:
+    MyCircularDeque(int k) {
+        s=k;
+    }
+    
+    bool insertFront(int value) {
+        if(p<s)
+        {d.push_front(value);p++;return true;}
+        return false;
+            
+    }
+    
+    bool insertLast(int value) {
+        if(p<s)
+        {d.push_back(value);p++;return true;}
+        return false;
+    }
+    
+    bool deleteFront() {
+        if(p>0)
+        {d.pop_front();p--;return true;}
+        return false;
+    }
+    
+    bool deleteLast() {
+        if(p>0)
+        {d.pop_back();p--;return true;}
+        return false;
+    }
+    
+    int getFront() {
+        if(p>0)
+        return d.front();
+        return -1;
+    }
+    
+    int getRear() {
+        if(p>0)
+        return d.back();
+        return -1;
+    }
+    
+    bool isEmpty() {
+        return p==0;
+    }
+    
+    bool isFull() {
+        return p==s;
+    }
+};
+
+/**
+ * Your MyCircularDeque object will be instantiated and called as such:
+ * MyCircularDeque* obj = new MyCircularDeque(k);
+ * bool param_1 = obj->insertFront(value);
+ * bool param_2 = obj->insertLast(value);
+ * bool param_3 = obj->deleteFront();
+ * bool param_4 = obj->deleteLast();
+ * int param_5 = obj->getFront();
+ * int param_6 = obj->getRear();
+ * bool param_7 = obj->isEmpty();
+ * bool param_8 = obj->isFull();
+ */
