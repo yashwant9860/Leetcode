@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> sumEvenAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
+        
+        int e=0;
+        for(auto a:nums)
+        {
+            if(a%2==0)
+            e+=a;
+        }
+        vector<int>v;
+        for(auto a:queries)
+        {
+            if(nums[a[1]]%2)
+            {
+                if((nums[a[1]]+a[0])%2==0)
+                    e+=nums[a[1]]+a[0];
+                
+            }
+            else{
+                if((nums[a[1]]+a[0])%2)
+                    e-=nums[a[1]];
+                else
+                    e+=a[0];
+            }
+            nums[a[1]]+=a[0];
+            v.push_back(e);
+        }
+        return v;
+    }
+};
