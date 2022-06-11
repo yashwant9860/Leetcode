@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int n=nums.size(),s=-x,ans=INT_MAX;
+        vector<int>v(n+1,0);
+        map<int,int>m;
+        v[0]=0;
+        m.insert({0,0});
+        for(auto a:nums)s+=a;
+        for(int i=1;i<n+1;i++)
+        {
+            v[i]=v[i-1]+nums[i-1];
+            m.insert({v[i],i});
+            if(m.find(v[i]-s)!=m.end())
+            {
+                ans=min(ans,n+m[v[i]-s]-i);
+            }
+        }
+        
+        if(ans!=INT_MAX)
+        return ans;
+        return -1;
+        
+    }
+};
