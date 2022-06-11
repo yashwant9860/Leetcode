@@ -1,0 +1,29 @@
+class Solution {
+    void dfs1(vector<vector<char>>&b,int i,int j)
+    {
+        if(i<0||i>b.size()-1||j<0||j>b[0].size()-1||b[i][j]=='.')
+            return ;
+        b[i][j]='.';
+        dfs1(b,i+1,j);
+    }
+    void dfs2(vector<vector<char>>&b,int i,int j)
+    {
+        if(i<0||i>b.size()-1||j<0||j>b[0].size()-1||b[i][j]=='.')
+            return ;
+        b[i][j]='.';
+        dfs2(b,i,j+1);
+    }
+public:
+    int countBattleships(vector<vector<char>>& board) {
+        int ans=0,m=board.size(),n=board[0].size();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(board[i][j]=='X')
+                {ans++;dfs1(board,i,j);board[i][j]='X';dfs2(board,i,j);}
+            }
+        }
+        return ans;
+    }
+};
