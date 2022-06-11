@@ -1,0 +1,46 @@
+class Solution {
+    vector<int>h{1,2,4,8},m{1,2,4,8,16,32};
+    void f(int on,int tot_on,int start,int hour,int min ,vector<string>&k)
+    {
+        if(hour>11||min>59||tot_on>on)
+            return ;
+        if(tot_on==on && hour<=11&& hour>=0 &&min<=59&&min>=0 )
+        {
+            string s="";
+            if(hour<10)
+                s+=hour+'0';
+            else
+            {s+=1+'0';s+=hour%10+'0';}
+            s+=':';
+            if(min<10)
+            {s+='0';s+=min+'0';}
+            else
+            {
+                s+=min/10+'0';
+                s+=min%10+'0';
+            }
+            k.push_back(s);
+            return;
+        }
+        if(tot_on==on)
+            return;
+        for(int i=start;i<h.size()+m.size();i++)
+        {
+            if(i<h.size())
+            {
+                f(on,tot_on+1,i+1,hour+h[i],min,k);
+            }
+            else
+                f(on,tot_on+1,i+1,hour,min+m[i-4],k);
+        }
+        return ;
+    }
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+        vector<string>k;
+        if(turnedOn>=9)
+            return {};
+         f(turnedOn,0,0,0,0,k);
+        return k;
+    }
+};
