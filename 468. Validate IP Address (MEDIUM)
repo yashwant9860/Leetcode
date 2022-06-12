@@ -1,0 +1,66 @@
+class Solution {
+public:
+    string validIPAddress(string queryIP) {
+        int flag=0,n=queryIP.size();
+        if(n<7)
+            return "Neither";
+        for(auto a:queryIP)
+        {
+            if(a=='.')
+                flag=1;
+        }
+        if(flag)
+        {
+            if(queryIP[0]=='.')
+                return "Neither";
+            int count=0;
+            for(int i=0;i<n;i++)
+            {
+                int c=0;
+                while(i<n&&queryIP[i]!='.')
+                {
+                    if(!(queryIP[i]<='9'&&queryIP[i]>='0'))
+                        return "Neither";
+                    i++;c++;
+                    
+                }
+                count++;
+                
+                if(c==0)
+                    return "Neither";
+                string s=queryIP.substr(i-c,c);
+                if((s[0]=='0'&&s.size()>1)||s.size()>3)
+                    return "Neither";
+                int p=stoi(s);
+                if(!(p<=255&&p>=0))
+                    return "Neither";
+            }
+            if(count!=4)
+                return "Neither";
+            if(queryIP[n-1]=='.')
+            return "Neither";
+        
+            return "IPv4";
+        }
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            int c=0;
+                while(i<n&&queryIP[i]!=':')
+                {
+                    if(!((queryIP[i]<='9'&&queryIP[i]>='0')||(queryIP[i]<='f'&&queryIP[i]>='a')||(queryIP[i]<='F'&&queryIP[i]>='A')))
+                        return "Neither";
+                    i++;c++;
+                }
+            if(c>4||c==0)
+                return "Neither";
+                string s=queryIP.substr(i-c,c);
+            count++;
+        }
+        if(count!=8)
+            return "Neither";
+        if(queryIP[n-1]==':')
+            return "Neither";
+        return "IPv6";
+    }
+};
