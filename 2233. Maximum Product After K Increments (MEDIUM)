@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int l=1,n=nums.size(),mod=1000000007;
+        for(int i=1;i<n&&k>0;i++)
+        {
+            
+            if(nums[i-1]<nums[i])
+            {
+                if(k>=l*(nums[i]-nums[i-1])){
+                    k=k-l*(nums[i]-nums[i-1]);
+                for(int j=0;j<=i-1;j++)
+                {
+                    nums[j]=nums[i];
+                }
+                }
+                else{
+                    
+                    int p=k/l;
+                    for(int j=0;j<=i-1;j++)
+                    nums[j]+=p;
+                    for(int j=0;j<k%l;j++)
+                    nums[j]+=1;
+                    k=0;
+                        break;
+                }
+            }
+            l++;
+        }
+        for(int i=0;i<n;i++)
+        {
+            nums[i]+=k/n;
+        }
+        for(int i=0;i<k%n;i++)
+            nums[i]++;
+        long long ans=1;
+        for(int i=0;i<n;i++)
+        {
+            ans*=nums[i];
+            if(nums[i]==0)
+                return 0;
+            ans=ans%mod;
+        }
+        return ans;
+    }
+};
