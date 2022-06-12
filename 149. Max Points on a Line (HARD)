@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        map<pair<float,float>,set<pair<int,int>>>m;
+        int n=points.size(),ans=2;
+        if(n==1)
+            return 1;
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(points[i][0]==points[j][0])
+                {
+                    if(m.find(make_pair(0,points[i][0]))!=m.end())
+                        m[{0,points[i][0]}].insert(make_pair(points[j][0],points[j][1]));
+                    else{
+                        set<pair<int,int>>k;
+                        k.insert({points[i][0],points[i][1]});
+                        k.insert({points[j][0],points[j][1]});
+                        m.insert({make_pair(0,points[i][0]),k});}
+                    ans=max(ans,(int)(m[make_pair(0,points[i][0])].size()));
+                    cout<<"i"<<i<<"j"<<j<<" "<<ans<<"first"<<endl;
+                }
+                else if(points[i][1]==points[j][1])
+                {
+                        set<pair<int,int>>k;
+                        k.insert({points[i][0],points[i][1]});
+                        k.insert({points[j][0],points[j][1]});
+                    if(m.find(make_pair(INT_MAX,points[i][1]))!=m.end())
+                        m[{INT_MAX,points[i][1]}].insert(make_pair(points[j][0],points[j][1]));
+                    else
+                        m.insert({make_pair(INT_MAX,points[i][1]),k});
+                    ans=max(ans,(int)(m[make_pair(INT_MAX,points[i][1])].size()));
+                    cout<<"i"<<i<<"j"<<j<<" "<<ans<<"second"<<endl;
+                }
+                else
+                {
+                set<pair<int,int>>k;
+                k.insert({points[i][0],points[i][1]});
+                k.insert({points[j][0],points[j][1]});
+                double slope=((double)points[i][1]-points[j][1])/(points[i][0]-points[j][0]);
+                    
+                double c=points[i][1]-(slope)*(points[i][0]);
+                cout<<slope<<" s"<<c<<" c"<<endl;
+                    if(m.find(make_pair(slope,c))!=m.end())
+                    m[{slope,c}].insert(make_pair(points[j][0],points[j][1]));
+                else
+                    m.insert({make_pair(slope,c),k});
+                ans=max(ans,(int)(m[{slope,c}].size()));
+                cout<<"i"<<i<<"j"<<j<<" "<<ans<<"third"<<endl;
+                }
+                
+            }
+        }
+        return ans;
+    }
+};
