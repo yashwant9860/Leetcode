@@ -1,0 +1,34 @@
+class Solution {
+    int helper(string g)
+    {
+        int a=0;
+        for(int i=0;i<g.size();i++)
+        {
+            int k=min(i,(int)g.size()-i-1),c=0,b=0;
+            while(c<=k)
+            {
+                if(g[i-c]==g[i+c])
+                    b++;
+                else break;
+                c++;
+            }
+            if(i%2==0)
+            a+=(b+1)/2;
+            else
+            a+=b/2;
+        }
+        return a;
+    }
+public:
+    int countSubstrings(string s) {
+        int n=s.length();
+        string g="";
+        for(int i=0;i<n-1;i++)
+        {
+            g+=s[i];
+            g+=' ';
+        }
+        g+=s[n-1];
+        return helper(g);
+    }
+};
