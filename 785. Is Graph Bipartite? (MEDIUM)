@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        vector<int>a(100,0);
+        queue<pair<int,int>>q;
+        for(int i=0;i<graph.size();i++)
+        {
+            if(graph[i].size()!=0)
+            {
+                q.push({i,-1});
+                a[i]=1;
+                break;   
+            }
+        }
+        while(!q.empty())
+        {
+            int b=q.front().first;
+            int c=q.front().second;
+            q.pop();
+            for(auto k:graph[b])
+            {
+                if(a[k]==0)
+                {
+                    a[k]=c;
+                    q.push({k,-c});
+                }
+                else if(a[k]==-c)
+                    return false;
+                else
+                    continue;
+            }
+            if(q.empty())
+            {
+                for(int j=0;j<graph.size();j++)
+                {
+                    if(a[j]==0)
+                    {
+                        q.push({j,-1});
+                        a[j]=1;
+                        break;
+                    }
+                }
+            }
+            
+        }        
+        return true;
+    }
+};
