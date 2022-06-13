@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int countPairs(vector<int>& deliciousness) {
+        map<int,int>m;
+        vector<int>v;
+        for(auto a:deliciousness)
+        {
+            if(m.find(a)!=m.end())
+                m[a]++;
+            else
+            {m.insert({a,1});v.push_back(a);}
+        }
+        long long ans1=0,ans2=0,mod=1000000007;
+        for(auto a:v)
+        {
+            int k=1;
+            for(int i=0;i<23;i++)
+            {
+                
+                if(m.find(k-a)!=m.end())
+                {
+                    if((a<<1)==k)
+                        ans1+=((long long)(m[k-a])*(m[k-a]-1))/2;
+                    else
+                        ans2+=m[k-a]*m[a];
+                }
+                k=k<<1;
+            }
+        }
+        return (ans1+ans2/2)%mod;
+    }
+};
