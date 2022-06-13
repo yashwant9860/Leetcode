@@ -1,0 +1,33 @@
+class Solution {
+    double helper(int a,int b,map<pair<int,int>,double>&m)
+    {
+        if(a<=0&&b<=0)
+            return 0.5;
+        if(a<=0&&b>0)
+            return 1;
+        if(b<=0&&a>0)
+            return 0;
+        vector<int>c{100,75,50,25},d{0,25,50,75};
+        double ans=0;
+        for(int i=0;i<4;i++)
+        {
+            double f;
+            if(m.find(make_pair(a-c[i],b-d[i]))!=m.end())
+                f=m[{a-c[i],b-d[i]}];
+            else
+            {
+                f=helper(a-c[i],b-d[i],m);
+                m.insert({make_pair(a-c[i],b-d[i]),f});
+            }
+            ans+=0.25*f;
+        }
+        return ans;
+    }
+public:
+    double soupServings(int n) {
+        if(n>5000)
+            return 1;
+        map<pair<int,int>,double>m;
+        return helper(n,n,m);
+    }
+};
