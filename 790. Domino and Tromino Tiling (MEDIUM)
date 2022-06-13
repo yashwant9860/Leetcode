@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numTilings(int n) {
+        long long mod=1e9+7;
+        vector<long long>f(n+5,0),p(n+5,0);
+        f[0]=0,p[0]=0;
+        f[1]=1,p[1]=0;
+        f[2]=2,p[2]=1;
+        for(int i=3;i<n+1;i++)
+        {
+            f[i]=(f[i-1]%mod+f[i-2]%mod+(2*p[i-1])%mod)%mod;
+            p[i]=(f[i-2]%mod+p[i-1]%mod)%mod;
+        }
+        return f[n]%mod;
+        
+    }
+};
