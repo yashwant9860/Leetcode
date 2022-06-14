@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long numberOfWeeks(vector<int>& milestones) {
+        long long s=0,mx=0;
+        for(auto a:milestones)
+        {
+            s+=a;
+            mx=max(mx,(long long)a);
+        }
+        if(2*mx<=s)
+            return s;
+            return 2*(s-mx)+1;
+        
+    }
+};
