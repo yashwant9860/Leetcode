@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+        int n=arr.size(),best=1;
+        map<int,int>m;
+        for(int i=0;i<n;i++)
+        {
+            if(m.find(arr[i]-difference)!=m.end())
+                    m[arr[i]]=m[arr[i]-difference]+1;
+                
+            else
+                    m[arr[i]]=1;
+            best=max(best,m[arr[i]]);
+        }
+        return best;
+    }
+};
