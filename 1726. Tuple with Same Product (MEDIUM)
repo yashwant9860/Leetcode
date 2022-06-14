@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<int>v;
+        map<int,int>m;
+        int n=nums.size();
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(m.find(nums[i]*nums[j])!=m.end())
+                    m[nums[i]*nums[j]]++;
+                else
+                    m.insert({nums[i]*nums[j],1});
+            }
+        }
+        int ans=0;
+        for(auto &a:m)   
+        {
+            int f=a.second;
+            ans+=f*(f-1)*4;
+        }
+        return ans;
+    }
+};
