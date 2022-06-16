@@ -1,0 +1,27 @@
+class Solution {
+public:
+    char findKthBit(int n, int k) {
+        vector<string>v(n);
+        v[0]="0";
+        if(n==0)
+            return '0';
+        for(int i=1;i<n;i++)
+        {
+            string ans=v[i-1];
+            ans+='1';
+            string p=v[i-1];
+            reverse(p.begin(),p.end());
+            for(int j=0,n=p.size();j<n;j++)
+            {
+                if(p[j]=='0')
+                    p[j]='1';
+                else
+                    p[j]='0';
+            }
+            ans+=p;
+            v[i]=ans;
+        }
+        return v[n-1][k-1];
+        
+    }
+};
