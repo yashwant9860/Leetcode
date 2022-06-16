@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        map<int,int>m;
+        for(auto s:forbidden)
+            m[s]=1;
+        vector<vector<int>>dpa(2,vector<int>(6000,0));
+        queue<pair<int,int>>q;
+        q.push({a,1});
+        dpa[0][0]=0;
+        dpa[0][0]=0;
+        dpa[0][a]=1;
+        if(m.find(a)!=m.end()||m.find(x)!=m.end())
+            return -1;
+        if(a==x)
+            return 1;
+        if(x==0)
+            return 0;
+        while(!q.empty())
+        {
+            int k=q.front().first;
+            int z=q.front().second;
+            int s=(z==-1);
+            q.pop();
+            if(k==x)
+            {return dpa[s][k];}
+            
+                if(m.find(k+a)==m.end())
+                {
+                    
+                    if(k+a<6000&&dpa[0][k+a]==0)
+                    {
+                        q.push(make_pair(a+k,1));
+                        if(z==-1)
+                        dpa[0][k+a]=dpa[1][k]+1;
+                        else
+                            dpa[0][k+a]=dpa[0][k]+1;
+                    }
+                }
+            if(m.find(k-b)==m.end()&&k-b>=0&&z!=-1)
+            {
+                if(dpa[1][k-b]==0)
+                {
+                    q.push(make_pair(k-b,-1));
+                    dpa[1][k-b]=dpa[0][k]+1;
+                }
+            }   
+        }
+        return -1;
+    }
+};
