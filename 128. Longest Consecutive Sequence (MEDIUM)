@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        set<int>s;
+        if(nums.size()==0)
+            return 0;
+        for(auto a:nums)
+            s.insert(a);
+        set<int>::iterator itr;
+        int k=1,best=1;
+        for(itr=s.begin();itr!=s.end();itr++)
+        {
+            auto b=itr;
+            auto a=(++itr);
+            if((a)!=s.end())
+            {
+                if(*(a)-*(b)==1)
+                    k++;
+                else 
+                    k=1;
+            }
+            itr--;
+            best=max(best,k);
+
+        }
+        return best;
+    }
+};
