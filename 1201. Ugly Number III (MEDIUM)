@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int nthUglyNumber(int n, int a, int b, int c) {
+        long long lo=1,hi=1e18;
+        long long x=((long long)a*b)/(__gcd(a,b));
+        long long y=((long long)b*c)/(__gcd(b,c));
+        long long z=((long long)c*a)/(__gcd(c,a));
+        long long f=((long long)x*c)/(__gcd(x,(long long)c));
+        long long mid;
+        while(lo<=hi)
+        {
+            mid=(lo+hi)/2;
+            long long k=mid/a+mid/b+mid/c-(mid/x)-(mid/y)-(mid/z)+(mid/f);
+            if(k==n)
+            {
+                long long a1=mid%a;
+                long long b1=mid%b;
+                long long c1=mid%c;
+                long long mida=mid-a1;
+                long long ka=mida/a+mida/b+mida/c-mida/x-mida/y-mida/z+mida/f;
+                long long midb=mid-b1;
+                long long kb=midb/a+midb/b+midb/c-midb/x-midb/y-midb/z+midb/f;
+                long long midc=mid-c1;
+                long long kc=midc/a+midc/b+midc/c-midc/x-midc/y-midc/z+midc/f;
+                if(ka==n)
+                    mid=min(mid,mida);
+                if(kb==n)
+                    mid=min(mid,midb);
+                if(kc==n)
+                    mid=min(mid,midc);
+                return mid;
+            }
+            if(k<n)
+            {
+                lo=mid+1;
+            }
+            else
+                hi=mid-1;
+        }
+        return -1;
+    }
+};
