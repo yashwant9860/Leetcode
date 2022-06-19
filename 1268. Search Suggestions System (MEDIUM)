@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        map<string,vector<string>>m;
+        vector<vector<string>>v;
+        int n=products.size();
+        sort(products.begin(),products.end());
+        for(int i=0;i<n;i++)
+        {
+            string p="";
+            for(int j=0,n1=products[i].length();j<n1;j++)
+            {
+                p+=products[i][j];
+                if(m[p].size()<3)
+                m[p].push_back(products[i]);    
+            }
+        }
+        string s="";
+        int level=0;
+        for(auto a:searchWord)
+        {
+            v.push_back({});
+            s+=a;
+            if(m.find(s)!=m.end())
+            {
+                for(int i=0;i<3&&i<m[s].size();i++)
+                v[level].push_back(m[s][i]);
+            }
+            level++;
+        }
+        return v;
+    }
+};
