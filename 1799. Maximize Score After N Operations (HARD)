@@ -1,0 +1,29 @@
+class Solution {
+    
+    int a(vector<int>&nums,int i,int mask,vector<vector<int>>&dp)
+    {
+        if(i>nums.size()/2)
+            return 0;
+        if(!dp[i][mask])
+        {
+            for(int j=0,n=nums.size();j<n-1;j++)
+            {
+                for(int k=j+1;k<n;k++)
+                {
+                    int l=(1<<j)+(1<<k);
+                    if((l&mask)==0)
+                    {
+                        dp[i][mask]=max(__gcd(nums[k],nums[j])*i+a(nums,i+1,mask+l,dp),dp[i][mask]);
+                    }
+                }
+            }
+        }
+        return dp[i][mask];
+        
+    }
+public:
+    int maxScore(vector<int>& nums) {
+        vector<vector<int>>dp(8,vector<int>(16384,0));
+        return a(nums,1,0,dp);
+    }
+};
