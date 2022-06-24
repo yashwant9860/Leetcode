@@ -1,0 +1,31 @@
+class Solution {
+    bool f(vector<int>&m,int target,vector<int>&visited,int k,int index,int currsum)
+    {
+        int n=m.size();
+        if(k==1)
+            return true;
+        if(target==currsum)
+            return f(m,target,visited,k-1,0,0);
+        int ans=0;
+        for(int i=index;i<n;i++)
+        {
+            if(visited[i]==0&&currsum+m[i]<=target)
+            {
+                visited[i]=1;
+                ans=ans||f(m,target,visited,k,i+1,currsum+m[i]);
+                visited[i]=0;
+            }
+        }
+        return ans;
+    }
+public:
+    bool makesquare(vector<int>& matchsticks) {
+        long s=0;
+        for(auto a:matchsticks)
+            s+=a;
+        if(s%4!=0||matchsticks.size()<4)
+            return false;
+        vector<int>visited(matchsticks.size(),0);
+        return f(matchsticks,s/4,visited,4,0,0);
+    }
+};
