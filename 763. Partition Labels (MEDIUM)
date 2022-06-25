@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        vector<int>h(26,0);
+        vector<int>ans;
+        for(auto a:s)
+            h[a-'a']++;
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            vector<int>h1(26,0);
+            h1[s[i]-'a']++;
+            int flag=0;
+            int p=i;
+            while(flag==0&&i<n)
+            {
+                int j=0;
+                for(j=0;j<26;j++)
+                {
+                    if(!(h[j]==h1[j]||h1[j]==0))
+                    {
+                        i++;
+                        h1[s[i]-'a']++;
+                        break;
+                    }
+                }
+                if(j==26)
+                    flag=1;
+            }
+            ans.push_back(i-p+1);
+        }
+        return ans;
+    }
+};
