@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        int n=arr.size();
+        vector<int>dp(n,0);
+        dp[0]=arr[0];
+        int m=arr[0];
+        for(int i=1;i<n;i++)
+        {
+            if(i-k<0)
+            m=max(m,arr[i]);
+            if(i-k<0)
+                dp[i]=m*(i+1);
+            else{
+            for(int j=i-k;j<i;j++)
+            {
+                int s=*max_element(arr.begin()+j+1,arr.begin()+i+1);
+                dp[i]=max(dp[j]+(i-j)*s,dp[i]);
+            }}
+            cout<<dp[i]<<endl;
+        }
+        return dp[n-1];
+    }
+};
