@@ -1,0 +1,21 @@
+class Solution {
+    static bool comp(string a,string b)
+    {
+        string s1=a+b;
+        string s2=b+a;
+        return s1>s2;
+    }
+public:
+    string largestNumber(vector<int>& nums) {
+        vector<string>t;
+        for(int i=0,n=nums.size();i<n;i++)
+            t.push_back(to_string(nums[i]));
+        string s="";
+        sort(t.begin(),t.end(),comp);
+        for(int i=0;i<nums.size();i++)
+        {s+=t[i];}
+        if(s[0]=='0')
+            return "0";
+        return s;
+    }
+};
