@@ -1,0 +1,39 @@
+class Solution {
+    int helper(vector<vector<int>>&dp,vector<int>&s,int i,int j,vector<int>&stone)
+    {
+        if(j-i+1==1)
+        {
+            return 0;
+        }
+        if(dp[i][j])
+            return dp[i][j];
+        int t=0;
+        for(int k=i;k<j;k++)
+        {
+            t+=stone[k];
+            int p=s[j]-s[k];
+            if(p<t)
+            dp[i][j]=max(helper(dp,s,k+1,j,stone)+p,dp[i][j]);
+            else if(p>t)
+            {
+                dp[i][j]=max(dp[i][j],helper(dp,s,i,k,stone)+t);
+            }
+            else
+            {
+                int f=max(helper(dp,s,k+1,j,stone)+p,helper(dp,s,i,k,stone)+p);
+                dp[i][j]=max(dp[i][j],f);
+            }
+        }
+        return dp[i][j];
+    }
+public:
+    int stoneGameV(vector<int>& stoneValue) {
+        int n=stoneValue.size();
+        vector<int>s(n,0);
+        vector<vector<int>>dp(n,vector<int>(n,0));
+        s[0]=stoneValue[0];
+        for(int i=1;i<n;i++)
+            s[i]=s[i-1]+stoneValue[i];
+        return helper(dp,s,0,n-1,stoneValue);
+    }
+};
