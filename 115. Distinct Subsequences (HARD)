@@ -1,0 +1,35 @@
+class Solution {
+    /*int f(string &s,string &t,int pos_s,int pos_t)
+    {
+        if(pos_t==t.length())
+            return 1;
+        if(pos_s>=s.length())
+            return 0;
+        int ans=0;
+        for(int i=pos_s;i<s.length();i++)
+        {
+            if(t[pos_t]==s[i]&&t.length()-pos_t<=s.length()-i)
+                ans+=f(s,t,i+1,pos_t+1);
+        }
+        return ans;
+    }*/
+    
+public:
+    int numDistinct(string s, string t) {
+       /* vector<int>v(t.length(),0);
+        return f(s,t,0,0);*/
+        int s1=s.length(),t1=t.length();
+        long long mod=1e9+7;
+        vector<vector<long long>>dp(t1+1,vector<long long>(s1+1,0));
+        for(int i=0;i<s1+1;i++)
+            dp[0][i]=1;
+        for(int i=1;i<t1+1;i++)
+        {
+            for(int j=1;j<s1+1;j++)
+            {
+                dp[i][j]=(t[i - 1] == s[j - 1] ? dp[i - 1][j - 1] : 0)%mod+ dp[i][j - 1]%mod;
+            }
+        }
+        return dp[t1][s1]%mod;
+;    }
+};
