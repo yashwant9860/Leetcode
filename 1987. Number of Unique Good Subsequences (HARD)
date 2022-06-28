@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numberOfUniqueGoodSubsequences(string binary) {
+        int n=binary.length();
+        long long ends0=0,ends1=0,mod=1e9+7,has0=0;
+        for(int i=0;i<n;i++)
+        {
+            if(binary[i]=='1')
+            {
+                ends1=(ends1+ends0+1)%mod;
+            }
+            else
+            {
+                ends0=(ends1+ends0)%mod;
+                has0=1;
+            }
+        }
+        return (ends0+ends1+has0)%mod;
+
+    }
+};
