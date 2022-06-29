@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int wateringPlants(vector<int>& plants, int capacity) {
+        int x=-1,n=plants.size(),currcap=capacity,steps=0;
+        for(int i=0;i<n;i++)
+        {
+            if(currcap-plants[i]<0)
+            {
+                steps+=(i)*2+1;
+                currcap=capacity-plants[i];
+            }
+            else
+            {currcap-=plants[i];steps++;}
+        }
+        return steps;
+            
+    }
+};
