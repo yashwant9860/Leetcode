@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        int mx=0;
+        for(auto a:matches)
+            mx=max(max(mx,a[0]),a[1]);
+        vector<int>loser(mx+1,-1);
+        for(auto a:matches)
+        {
+            if(loser[a[0]]==-1)
+            loser[a[0]]=0;
+            if(loser[a[1]]==-1)
+                loser[a[1]]=1;
+            else
+                loser[a[1]]++;
+        }
+        vector<vector<int>>ans(2);
+        for(int i=1;i<=mx;i++)
+        {
+            if(loser[i]==0)
+                ans[0].push_back(i);
+            if(loser[i]==1)
+                ans[1].push_back(i);
+        }
+        return ans;
+    }
+};
