@@ -1,0 +1,35 @@
+class Solution {
+    long long f(int n,char last,vector<vector<int>>&dp)
+    {
+        long long ans=0,mod=1e9+7;
+        if(n<0)
+            return 0;
+        if(n==0)
+            return 1;
+        if(dp[n][last-'a'])
+            return dp[n][last-'a'];
+        if(last=='a')
+            ans+=f(n-1,'e',dp);
+        if(last=='e')
+            ans+=f(n-1,'i',dp)+f(n-1,'a',dp);
+        if(last=='i')
+            ans+=(f(n-1,'a',dp)+f(n-1,'e',dp)+f(n-1,'o',dp)+f(n-1,'u',dp))%mod;
+        if(last=='o')
+            ans+=f(n-1,'i',dp)+f(n-1,'u',dp);
+        if(last=='u')
+            ans+=f(n-1,'a',dp);
+        dp[n][last-'a']=ans%mod;
+        return ans%mod;
+    }
+public:
+    int countVowelPermutation(int n) {
+        vector<vector<int>>dp(n+1,vector<int>(26,0));
+        long long mod=1e9+7;
+        int a1 = f(n-1,'a',dp)%mod;
+        int a2 = f(n-1,'e',dp)%mod;
+        int a3 = f(n-1,'i',dp)%mod;
+        int a4 = f(n-1,'o',dp)%mod;
+        int a5 = f(n-1,'u',dp)%mod;
+        return (a1+(long long)a2+a3+a4+(long long)a5)%mod;
+    }
+};
