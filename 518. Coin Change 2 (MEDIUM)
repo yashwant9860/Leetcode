@@ -1,0 +1,36 @@
+class Solution {
+    
+    /*int f(vector<int>&coins,int currind,int t)
+    {
+        if(t==0)
+            return 1;
+        if(dp[t][currind])
+        {return dp[t][currind];}
+        int ans=0;
+        for(int i=currind,n=coins.size();i<n;i++) 
+        {
+            if(t-coins[i]<0)
+                break;
+            ans+=f(coins,i,-coins[i]+t);
+        }
+        return dp[t][currind]=ans;
+    }*/
+public:
+    int change(int amount, vector<int>& coins) {
+        sort(coins.begin(),coins.end());
+        vector<vector<int>>dp(amount+1,vector<int>(coins.size()+1,0));
+        //return f(coins,0,amount);
+        dp[0][0]=1;
+        for(int i=1;i<=coins.size();i++)
+        {
+            dp[0][i]=1;
+            for(int j=1;j<=amount;j++)
+            {
+                dp[j][i]+=dp[j][i-1];
+                if(j>=coins[i-1])
+                    dp[j][i]+=dp[j-coins[i-1]][i];
+            }
+        }
+        return dp[amount][coins.size()];
+    }
+};
