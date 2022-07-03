@@ -1,0 +1,21 @@
+class Solution {
+    int helper(int start,int end,vector<vector<int>>&dp)
+    {
+        if(start>=end)
+            return 0;
+        if(dp[start][end])
+            return dp[start][end];
+        int ans=INT_MAX;
+        for(int i=start;i<=end;i++)
+        {
+            int k=max(helper(i+1,end,dp)+i,helper(start,i-1,dp)+i);
+            ans=min(ans,k);
+        }
+        return dp[start][end]=ans;
+    }
+public:
+    int getMoneyAmount(int n) {
+        vector<vector<int>>dp(n+2,vector<int>(n+2,0));
+        return helper(1,n,dp);
+    }
+};
