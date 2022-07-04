@@ -1,0 +1,25 @@
+class Solution {
+    int dp[1001];
+    int helper(vector<int>&nums,int target)
+    {
+        if(target==0)
+            return 1;
+        if(dp[target]!=-1)
+            return dp[target];
+        dp[target]=0;
+        for(auto a:nums)
+        {
+            if(target>=a)
+            dp[target]+=helper(nums,target-a);
+            else
+            break;
+        }
+        return dp[target];
+    }
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        fill_n(dp,1001,-1);
+        return helper(nums,target);
+    }
+};
