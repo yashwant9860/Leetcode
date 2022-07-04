@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int minSwaps(string s) {
+        int odd_one=0,even_one=0,odd_zero=0,even_zero=0,n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='0')
+            {
+                if(i%2==0)
+                    even_zero++;
+                else
+                    odd_zero++;
+            }
+            else
+            {
+                if(i%2==0)
+                    even_one++;
+                else
+                    odd_one++;
+            }
+        }
+        if(abs(odd_one+even_one-odd_zero-even_zero)>1)
+            return -1;
+        if(n%2==0)
+            return min(odd_one,even_one);
+        else
+        {
+            if(odd_one+even_one>odd_zero+even_zero)
+            {
+                return odd_one;
+            }
+            else
+                return odd_zero;
+        }
+        return 0;
+    }
+};
