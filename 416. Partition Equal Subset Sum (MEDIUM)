@@ -1,0 +1,26 @@
+class Solution {
+    
+public:
+    bool canPartition(vector<int>& nums) {
+        int n=nums.size(),s=0;
+        for(auto a:nums)
+            s+=a;
+        if((s&1)==1)
+            return false;
+        int dp[n+1][s+1];
+        memset(dp,0,sizeof dp);
+        for(int i=0;i<n+1;i++)
+            dp[i][0]=1;
+        for(int i=1;i<n+1;i++)
+        {
+            for(int j=1;j<s+1;j++)
+            {
+                dp[i][j]=dp[i-1][j];
+                if(j>=nums[i-1])
+                    dp[i][j]|=dp[i-1][j-nums[i-1]];
+            }
+        }
+        return dp[n][s/2];
+        
+    }
+};
