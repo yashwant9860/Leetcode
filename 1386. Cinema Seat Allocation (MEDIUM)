@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
+        sort(reservedSeats.begin(),reservedSeats.end());
+        int sz=reservedSeats.size(),cnt=0,b=0;
+        for(int i=0;i<sz;i++)
+        {
+            int a=reservedSeats[i][0];
+            cnt+=2*(a-b-1);
+            vector<int>v(10,0);
+            while(i<sz&&a==reservedSeats[i][0])
+            {
+                v[reservedSeats[i][1]-1]=1;
+                i++;
+            }
+            b=a;
+            i--;
+            if(v[1]==0&&v[2]==0&&v[3]==0&&v[4]==0&&v[5]==0&&v[6]==0&&v[7]==0&&v[8]==0)
+                cnt+=2;
+            else if(v[5]==0&&v[6]==0&&v[7]==0&&v[8]==0&&!(v[1]==0&&v[2]==0&&v[3]==0&&v[4]==0))
+                cnt++;
+            else if(!(v[5]==0&&v[6]==0&&v[7]==0&&v[8]==0)&&v[1]==0&&v[2]==0&&v[3]==0&&v[4]==0)
+                cnt++;
+            else if(v[3]==0&&v[4]==0&&v[5]==0&&v[6]==0)
+                cnt++;
+        }
+        cnt+=(n-b)*2;
+        return cnt;
+    }
+};
