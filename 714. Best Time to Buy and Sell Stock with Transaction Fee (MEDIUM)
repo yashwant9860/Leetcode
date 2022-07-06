@@ -1,0 +1,21 @@
+class Solution {
+    int helper(vector<int>&p,int ind,vector<vector<int>>&dp,int state,int f)
+    {
+        int n = p.size();
+        if(ind>=n)
+            return 0;
+        if(dp[state][ind]!=INT_MIN)
+            return dp[state][ind];
+        if(state==0)
+            dp[state][ind]=max(helper(p,ind+1,dp,1,f)-f-p[ind],helper(p,ind+1,dp,0,f));
+        else
+            dp[state][ind]=max(helper(p,ind+1,dp,0,f)+p[ind],helper(p,ind+1,dp,1,f));
+        return dp[state][ind];
+    }
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        vector<vector<int>>dp(2,vector<int>(prices.size(),INT_MIN));
+        helper(prices,0,dp,0,fee);
+        return dp[0][0];
+    }
+};
