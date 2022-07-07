@@ -1,0 +1,33 @@
+class Solution {
+    void backtrack(vector<vector<string>>&ans,vector<string>c,string s,int ind)
+    {
+        int n=s.length();
+        if(n==ind)
+        {
+            ans.push_back(c);
+            return ;
+        }
+        
+            string k="";
+            for(int j=ind;j<n;j++)
+            {
+                k+=s[j];
+                string p = k;
+                reverse(p.begin(),p.end());
+                if(k==p)
+                {
+                    c.push_back(p);
+                    backtrack(ans,c,s,j+1);
+                    c.pop_back();
+                }
+            }
+        
+    }
+public:
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>>ans;
+        vector<string>c;
+        backtrack(ans,c,s,0);
+        return ans;
+    }
+};
