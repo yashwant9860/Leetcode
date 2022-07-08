@@ -1,0 +1,25 @@
+class Solution {
+    int dp[370],mx=100001;
+    int topdown(vector<int>&days,vector<int>&costs,int ind)
+    {
+        int n=days.size();
+        if(ind>=n)
+            return 0;
+        if(dp[ind]!=mx)
+            return dp[ind];
+        dp[ind]=min(dp[ind],costs[0]+topdown(days,costs,ind+1));
+        int j=ind;
+        while(j<n&&days[j]-days[ind]<7)
+            j++;
+        dp[ind]=min(dp[ind],costs[1]+topdown(days,costs,j));
+        while(j<n&&days[j]-days[ind]<30)
+            j++;
+        dp[ind]=min(dp[ind],costs[2]+topdown(days,costs,j));
+        return dp[ind];
+    }
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        fill_n(dp,370,mx);
+        return topdown(days,costs,0);
+    }
+};
