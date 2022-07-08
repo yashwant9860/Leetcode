@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        map<int,int>m;
+        for(auto a:nums)
+            m[a]++;
+        int ans=0;
+        for(auto a:nums)
+        {
+            while(m[k-a]>0&&m[a]>0)
+            {
+                ans++;
+                m[k-a]--;
+                m[a]--;
+            }
+            if(m[k-a]<0||m[a]<0)
+            {ans--;m[k-a]=0;m[a]=0;}
+        }
+        return ans;
+    }
+};
