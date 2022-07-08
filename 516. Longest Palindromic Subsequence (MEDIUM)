@@ -1,0 +1,22 @@
+class Solution {
+    int dp[1001][1001];
+    int topdown(string &s,int i,int j)
+    {
+        if(i>j)
+            return 0;
+        if(i==j)
+            return 1;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        if(s[i]==s[j])
+            return dp[i][j]=2+topdown(s,i+1,j-1);
+        else
+            return dp[i][j]=max(topdown(s,i+1,j),topdown(s,i,j-1));
+    }
+public:
+    int longestPalindromeSubseq(string s) {
+        int n=s.length();
+        memset(dp,-1,sizeof dp);
+        return topdown(s,0,n-1);
+    }
+};
