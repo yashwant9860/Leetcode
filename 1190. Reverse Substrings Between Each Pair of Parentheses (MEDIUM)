@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        int n=s.length();
+        stack<int>open;
+        vector<pair<int,int>>o_c;
+        string k="";
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='(')
+                open.push(i);
+            if(s[i]==')')
+            {
+                o_c.push_back({open.top(),i});
+                open.pop();
+            }
+        }        
+        for(int i=0,sz=o_c.size();i<sz;i++)
+        {
+            reverse(s.begin()+o_c[i].first,s.begin()+o_c[i].second);
+        }
+        for(auto a:s)
+            if(a!=')'&&a!='(')
+                k+=a;
+        return k;
+    }
+};
