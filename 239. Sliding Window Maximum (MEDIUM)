@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n=nums.size();
+        vector<int>left(n,0),right(n,0),ans;
+        stack<int>s;
+        for(int i=0;i<n;i++)
+        {
+            while(!s.empty()&&nums[s.top()]<nums[i])s.pop();
+            if(!s.empty())left[i]=i-s.top();
+            else left[i]=i+1;
+            s.push(i);
+        }
+        while(!s.empty())s.pop();
+        for(int i=n-1;i>=0;i--)
+        {
+            while(!s.empty()&&nums[s.top()]<=nums[i])s.pop();
+            if(!s.empty())right[i]=s.top()-i;
+            else right[i]=n-i;
+            s.push(i);
+        }
+        for(int i=0;i<n;i++)
+        {
+            left[i]=min(left[i],k);
+            right[i]=min(right[i],k);
+            int a=left[i]+right[i]-1;
+            while(a-k>=0)
+            {
+                ans.push_back(nums[i]);
+                a--;
+            }
+        }
+        return ans; 
+    }
+};
